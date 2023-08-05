@@ -64,7 +64,7 @@ def train(epochs,
             end = time.time()
             eta = str(datetime.timedelta(seconds=int(batch_time.val*(num_trainloader-idx))))
             num_iters = epoch * num_trainloader + idx
-            if idx %1 == 0 :
+            if idx %10 == 0 :
                 print(
                     "Epoch: #{0} Batch: {1}/{2}\t"
                     "Time (current/total) {batch_time.val:.3f}/{batch_time.sum:.3f}\t"
