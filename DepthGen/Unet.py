@@ -144,6 +144,7 @@ class Unet(nn.Module):
 
         down=[]
         out_channels=in_channels=n_channels
+        down.append(Downsample(in_channels))
         for i in range(n_resolutions):
             out_channels=in_channels*ch_mults[i]
             for _ in range(n_blocks[i]):
@@ -164,8 +165,7 @@ class Unet(nn.Module):
             out_channels=in_channels//ch_mults[i]
             up.append(UpBlock(in_channels, out_channels, n_channels*4, is_attn[i]))
             in_channels=out_channels
-            if i>0:
-                up.append(Upsample(in_channels))
+            up.append(Upsample(in_channels))
         self.up=nn.ModuleList(up)
 
         self.norm=nn.GroupNorm(8,n_channels)
